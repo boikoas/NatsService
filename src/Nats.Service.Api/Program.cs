@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 
@@ -21,7 +24,19 @@ namespace Nats.Service.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) => Host
             .CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder => webBuilder
-            .UseStartup<Startup>());
+            .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+            .ConfigureWebHostDefaults(webHostBuilder =>
+            {
+                webHostBuilder
+                    .ConfigureAppConfiguration((hostingContext, config) =>
+                    {
+                        var env = hostingContext.HostingEnvironment;
+                        config.SetBasePath(Directory.GetCurrentDirectory());
+                        config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                        config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: false, true);
+                        config.AddEnvironmentVariables();
+                    })
+                    .UseStartup<Startup>();
+            });
     }
 }

@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
+using Nats.Service.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
+using Nats.Setvice.Domain.Database;
+using Nats.Service.Infrastructure.Database.Repositories;
 
 namespace Nats.Service.Api
 {
@@ -21,8 +25,10 @@ namespace Nats.Service.Api
         /// <returns><see cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration) => services
             .AddOptions()
+            .AddDbContext<AppDbContext>(o => o.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
             .AddMvcActionFilters()
             .AddAllHealthChecks()
+            .AddRepositories()
             .AddMediator();
 
         /// <summary>
@@ -56,6 +62,18 @@ namespace Nats.Service.Api
             return services;
         }
 
+        /// <summary>
+        /// Добавление репозиториев.
+        /// </summary>
+        /// <param name="services">Коллекция сервисов.</param>
+        /// <returns><see cref="IServiceCollection"/>.</returns>
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IMessageForSaveRepository, MessageForSaveRepository>();
+            services.AddScoped<IMessageForSendRepository, MessageForSendRepository>();
+
+            return services;
+        }
 
 
     }

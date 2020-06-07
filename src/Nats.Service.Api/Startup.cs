@@ -6,6 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Diagnostics.CodeAnalysis;
+using Nats.Service.Infrastructure.Middleware;
+using Autofac;
+using Nats.Service.Infrastructure.Messaging.Nats;
+using Nats.Service.Infrastructure.Serializers.Binary;
+using Nats.Service.Infrastructure.Dispatchers;
+using System;
+using Nats.Setvice.Domain.Database;
 
 namespace Nats.Service.Api
 {
@@ -30,10 +37,24 @@ namespace Nats.Service.Api
             services.AddServices(Configuration);
         }
 
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            RegisterService(builder);
+        }
+
         public void Configure(IApplicationBuilder app)
         {
             app.UseDeveloperExceptionPage();
             app.UseCustomHealthChecks();
+            app.UseGlobalExceptionHandler();
+        }
+
+        private static void RegisterService(ContainerBuilder builder)
+        {
+            builder.RegisterType<NatsConfiguration>().As<INatsConfiguration>();
+            builder.RegisterType<NatsManager>().As<INatsManager>().SingleInstance();
+            builder.RegisterType<BinaryFormatterSerializer>().As<IBinarySerializer>().SingleInstance();
+            builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>();
         }
     }
 }

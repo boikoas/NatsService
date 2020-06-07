@@ -10,7 +10,7 @@ namespace Nats.Service.Api.MediatR
     {
         // TODO: Изменить неймспейсы на соответствующие неймспейсы проектов Application и Infrastructure вашего солюшена!
         // Например: $"{nameof(AlfaBank)}.{nameof(TemplateProject)}.{nameof(Infrastructure)}"
-        private static string ApplicationProjectNameSpace => $"{nameof(Nats)}.{nameof(Service)}.{nameof(Application)}";
+        private static string ApplicationProjectNameSpace => $"{nameof(Nats)}.{nameof(Service)}";
 
         private static string InfrastructureProjectNameSpace => $"{nameof(Nats)}.{nameof(Service)}.{nameof(Infrastructure)}";
 
