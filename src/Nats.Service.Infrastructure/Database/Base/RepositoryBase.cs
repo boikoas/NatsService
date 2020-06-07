@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Nats.Service.Infrastructure.Base;
 using Nats.Setvice.Domain;
-using Nats.Setvice.Domain.Database;
+using Nats.Setvice.Infrastructure.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Nats.Service.Domain.Base

@@ -12,7 +12,7 @@ using Nats.Service.Infrastructure.Messaging.Nats;
 using Nats.Service.Infrastructure.Serializers.Binary;
 using Nats.Service.Infrastructure.Dispatchers;
 using System;
-using Nats.Setvice.Domain.Database;
+using Nats.Setvice.Infrastructure.Database;
 
 namespace Nats.Service.Api
 {

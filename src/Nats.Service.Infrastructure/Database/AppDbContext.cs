@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Nats.Service.Infrastructure.Model;
 
-namespace Nats.Setvice.Domain.Database
+namespace Nats.Setvice.Infrastructure.Database
 {
     public class AppDbContext : DbContext
     {
@@ -14,7 +14,6 @@ namespace Nats.Setvice.Domain.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
         }
 
         public DbSet<MessageForSend> MessagesForSend{ get; set; }

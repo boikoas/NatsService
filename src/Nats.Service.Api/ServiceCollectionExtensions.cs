@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 using Nats.Service.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
-using Nats.Setvice.Domain.Database;
+using Nats.Setvice.Infrastructure.Database;
 using Nats.Service.Infrastructure.Database.Repositories;
 
 namespace Nats.Service.Api
@@ -25,7 +25,8 @@ namespace Nats.Service.Api
         /// <returns><see cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration) => services
             .AddOptions()
-            .AddDbContext<AppDbContext>(o => o.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
+            .AddDbContext<AppDbContext>(o => o.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly(typeof(AppDbContext).Namespace)))
             .AddMvcActionFilters()
             .AddAllHealthChecks()
             .AddRepositories()
