@@ -5,13 +5,22 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Nats.Service.Infrastructure.Model
+namespace Nats.Service.Domain.Model
 {
     [Serializable]
-    [Table("messageForSend")]
-    public class MessageForSend : Entity
+    [Table("messageForSave")]
+    public class MessageForSave : Entity
     {
+        [Required]
+        int Number;
+
         [Required(ErrorMessage = "Text dont be empty")]
         string Text;
+
+        [Required]
+        DateTime TimeSend;
+
+        [Required]
+        int HashCode;
     }
 }

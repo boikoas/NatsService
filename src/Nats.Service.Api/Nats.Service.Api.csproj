@@ -35,10 +35,6 @@
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Db\" />
-  </ItemGroup>
-
   <Target Name="RestoreTools" BeforeTargets="Build">
     <Exec Command="dotnet tool restore" />
   </Target>

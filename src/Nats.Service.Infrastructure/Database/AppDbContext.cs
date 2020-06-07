@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Nats.Service.Infrastructure.Model;
+using Nats.Service.Domain.Model;
 
 namespace Nats.Setvice.Infrastructure.Database
 {

@@ -1,5 +1,4 @@
 ﻿using Nats.Service.Api.HealthCheck;
-using Nats.Service.Api.MediatR;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,8 +28,7 @@ namespace Nats.Service.Api
                 b => b.MigrationsAssembly(typeof(AppDbContext).Namespace)))
             .AddMvcActionFilters()
             .AddAllHealthChecks()
-            .AddRepositories()
-            .AddMediator();
+            .AddRepositories();
 
         /// <summary>
         /// Добавление MVC фильтров действий.

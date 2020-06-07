@@ -1,5 +1,5 @@
 ﻿using Nats.Service.Domain.Base;
-using Nats.Service.Infrastructure.Model;
+using Nats.Service.Domain.Model;
 using Nats.Setvice.Infrastructure.Database;
 using System;
 using System.Collections.Generic;

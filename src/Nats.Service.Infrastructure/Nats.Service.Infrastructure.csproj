@@ -6,9 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Configuration\**" />
     <Compile Remove="Database\Configuration\**" />
+    <Compile Remove="Database\Migrations\**" />
+    <EmbeddedResource Remove="Configuration\**" />
     <EmbeddedResource Remove="Database\Configuration\**" />
+    <EmbeddedResource Remove="Database\Migrations\**" />
+    <None Remove="Configuration\**" />
     <None Remove="Database\Configuration\**" />
+    <None Remove="Database\Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,9 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configuration\" />
     <Folder Include="Connected Services\" />
-    <Folder Include="Database\Migrations\" />
   </ItemGroup>
 
 </Project>
