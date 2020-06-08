@@ -1,9 +1,7 @@
 ﻿using Nats.Setvice.Domain;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Nats.Service.Domain.Model
 {
@@ -12,15 +10,15 @@ namespace Nats.Service.Domain.Model
     public class MessageForSave : Entity
     {
         [Required]
-        int Number;
+        public int Number { get; set; }
 
         [Required(ErrorMessage = "Text dont be empty")]
-        string Text;
+        public string Text { get; set; }
 
         [Required]
-        DateTime TimeSend;
+        public DateTime TimeSend { get; set; }
 
         [Required]
-        int HashCode;
+        public int HashCode { get; set; }
     }
 }

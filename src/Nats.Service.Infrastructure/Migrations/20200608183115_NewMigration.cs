@@ -14,7 +14,11 @@ namespace Nats.Service.Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Guid = table.Column<Guid>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false)
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Number = table.Column<int>(nullable: false),
+                    Text = table.Column<string>(nullable: false),
+                    TimeSend = table.Column<DateTime>(nullable: false),
+                    HashCode = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,7 +32,8 @@ namespace Nats.Service.Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Guid = table.Column<Guid>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false)
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Text = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

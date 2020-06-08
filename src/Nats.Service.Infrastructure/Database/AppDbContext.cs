@@ -16,9 +16,8 @@ namespace Nats.Setvice.Infrastructure.Database
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<MessageForSend> MessagesForSend{ get; set; }
+        public DbSet<MessageForSend> MessagesForSend { get; set; }
 
         public DbSet<MessageForSave> MessagesForSave { get; set; }
-
     }
 }

@@ -2,10 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Nats.Setvice.Infrastructure.Database;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Nats.Service.Infrastructure.Database
 {

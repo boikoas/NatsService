@@ -1,9 +1,7 @@
 ﻿using Nats.Setvice.Domain;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Nats.Service.Domain.Model
 {
@@ -12,6 +10,6 @@ namespace Nats.Service.Domain.Model
     public class MessageForSend : Entity
     {
         [Required(ErrorMessage = "Text dont be empty")]
-        string Text;
+        public string Text { get; set; }
     }
 }

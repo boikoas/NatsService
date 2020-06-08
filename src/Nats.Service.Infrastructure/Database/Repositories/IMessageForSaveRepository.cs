@@ -1,8 +1,5 @@
-﻿using Nats.Service.Infrastructure.Base;
-using Nats.Service.Domain.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Nats.Service.Domain.Model;
+using Nats.Service.Infrastructure.Base;
 
 namespace Nats.Service.Infrastructure.Database.Repositories
 {

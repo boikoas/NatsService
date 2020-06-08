@@ -3,7 +3,7 @@
 namespace Nats.Setvice.Domain.Base
 {
     [Serializable]
-    public abstract class BaseCommand 
+    public abstract class BaseCommand
     {
     }
 }

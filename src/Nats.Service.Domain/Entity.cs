@@ -9,14 +9,15 @@ namespace Nats.Setvice.Domain
     {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
         public int Id { get; protected set; }
-        public Guid Guid { get; protected set; }
-        public bool IsDeleted { get; protected set; }
+
+        public Guid Guid { get; set; } = Guid.NewGuid();
+        public bool IsDeleted { get; protected set; } = false;
 
         public void Delete()
         {
             IsDeleted = true;
         }
-        
+
         public override bool Equals(object obj)
         {
             if (!(obj is Entity other))

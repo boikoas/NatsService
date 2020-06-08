@@ -7,7 +7,7 @@ namespace Nats.Service.Infrastructure.Serializers.Binary
     public sealed class BinaryFormatterSerializer : IBinarySerializer
     {
         private static readonly BinaryFormatter BinaryFormatter = new BinaryFormatter();
-        
+
         byte[] IBinarySerializer.Serialize<T>(T obj)
         {
             if (obj == null)

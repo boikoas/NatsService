@@ -1,12 +1,16 @@
-﻿using Nats.Service.Api.HealthCheck;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics.CodeAnalysis;
-using Nats.Service.Infrastructure.Database;
-using Microsoft.EntityFrameworkCore;
-using Nats.Setvice.Infrastructure.Database;
+using Nats.Service.Api.HealthCheck;
 using Nats.Service.Infrastructure.Database.Repositories;
+using Nats.Service.Infrastructure.Dispatchers;
+using Nats.Service.Infrastructure.Messaging.Nats;
+using Nats.Service.Infrastructure.Serializers.Binary;
+using Nats.Service.Infrastructure.Services;
+using Nats.Service.Infrastructure.Services.ActionWriterService;
+using Nats.Setvice.Infrastructure.Database;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Nats.Service.Api
 {
@@ -24,11 +28,11 @@ namespace Nats.Service.Api
         /// <returns><see cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration) => services
             .AddOptions()
-            .AddDbContext<AppDbContext>(o => o.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(AppDbContext).Namespace)))
+            .AddDbContext<AppDbContext>(o => o.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
             .AddMvcActionFilters()
             .AddAllHealthChecks()
-            .AddRepositories();
+            .AddRepositories()
+            .AddApplicationServices();
 
         /// <summary>
         /// Добавление MVC фильтров действий.
@@ -68,12 +72,21 @@ namespace Nats.Service.Api
         /// <returns><see cref="IServiceCollection"/>.</returns>
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IMessageForSaveRepository, MessageForSaveRepository>();
-            services.AddScoped<IMessageForSendRepository, MessageForSendRepository>();
+            services.AddTransient<IMessageForSaveRepository, MessageForSaveRepository>();
+            services.AddTransient<IMessageForSendRepository, MessageForSendRepository>();
 
             return services;
         }
 
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services) => services
+            .AddTransient<INatsConfiguration, NatsConfiguration>()
+            .AddTransient<INatsManager, NatsManager>()
+            .AddTransient<IBinarySerializer, BinaryFormatterSerializer>()
+            .AddTransient<ICommandDispatcher, CommandDispatcher>()
+            .AddTransient<IGenerateMessagesService, GenerateMessagesService>()
+            .AddTransient<IMessageProcessingService, MessageProcessingService>()
+            .AddTransient<IActionWriterService, ActionWriterService>()
 
+            ;
     }
 }

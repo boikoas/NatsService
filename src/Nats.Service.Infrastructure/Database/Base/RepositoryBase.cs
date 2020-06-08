@@ -41,16 +41,18 @@ namespace Nats.Service.Domain.Base
 
             await this.RepositoryContext.Set<T>().AddAsync(entity);
 
+            await this.RepositoryContext.SaveChangesAsync();
+
             return entity;
         }
 
         public async Task<T> UpdateAsync(T entity)
         {
-            if (await Exists(entity.Guid))
+            if (!(await Exists(entity.Guid)))
                 throw new InvalidOperationException(nameof(Const.Message.ItemWasCreated));
-           
+
             this.RepositoryContext.Set<T>().Update(entity);
-           
+
             await this.RepositoryContext.SaveChangesAsync();
 
             return entity;
@@ -60,11 +62,11 @@ namespace Nats.Service.Domain.Base
         {
             if (!(await Exists(entity.Guid)))
                 throw new InvalidOperationException(nameof(Const.Message.ItemNotFound));
-           
+
             entity.Delete();
 
             this.RepositoryContext.Set<T>().Update(entity);
-           
+
             await this.RepositoryContext.SaveChangesAsync();
 
             return entity;
@@ -74,12 +76,10 @@ namespace Nats.Service.Domain.Base
         {
             return await this.RepositoryContext.Set<T>().AnyAsync(x => x.Guid == id && !x.IsDeleted);
         }
-        
+
         public override int GetHashCode()
         {
             return (GetType().ToString()).GetHashCode();
         }
-
-       
     }
 }
